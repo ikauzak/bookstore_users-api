@@ -1,7 +1,10 @@
 package users
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/ikauzak/bookstore_users-api/domain/users"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -12,6 +15,11 @@ func GetUser(c *gin.Context) {
 
 //CreateUser does
 func CreateUser(c *gin.Context) {
+	var user users.User
+	fmt.Println(user)
+	bytes, err := ioutil.ReadAll(c.Request.Body)
+	fmt.Println(err)
+	fmt.Println(string(bytes))
 	c.String(http.StatusNotImplemented, "implement me")
 }
 

@@ -3,6 +3,7 @@ package users
 import (
 	"fmt"
 	"github.com/ikauzak/bookstore_users-api/utils/errors"
+	"time"
 )
 
 var (
@@ -21,7 +22,7 @@ func (user *User) Get() *errors.RestErr {
 	user.FirstName = result.FirstName
 	user.LastName = result.LastName
 	user.Email = result.Email
-	user.DataCreated = result.DataCreated
+	user.DateCreated = result.DateCreated
 	return nil
 }
 
@@ -34,6 +35,9 @@ func (user *User) Save() *errors.RestErr {
 		}
 		return errors.NewBadRequestError(fmt.Sprintf("user %d already exists", user.ID))
 	}
+	now := time.Now().UTC()
+	user.DateCreated = now.Format("02-01-2006T15:04:05Z")
+
 	usersDB[user.ID] = user
 	return nil
 }

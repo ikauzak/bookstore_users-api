@@ -13,7 +13,7 @@ type User struct {
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name`
 	Email       string `json:"email"`
-	DataCreated string `json:"data_created"`
+	DateCreated string `json:"data_created"`
 }
 
 // Validate method user.Validate()

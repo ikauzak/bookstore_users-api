@@ -1,12 +1,10 @@
 package users
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ikauzak/bookstore_users-api/domain/users"
 	"github.com/ikauzak/bookstore_users-api/services"
-	"io/ioutil"
 	"net/http"
 )
 

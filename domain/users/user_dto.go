@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+// dto = data transfer object
+
 //User can
 type User struct {
 	ID          int64  `json:"id"`

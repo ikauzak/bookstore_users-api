@@ -6,11 +6,23 @@ import (
 	"github.com/ikauzak/bookstore_users-api/services"
 	"github.com/ikauzak/bookstore_users-api/utils/errors"
 	"net/http"
+	"strconv"
 )
 
 //GetUser does
 func GetUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "implement me")
+	userID, userErr := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if userErr != nil {
+		err := errors.NewBadRequestError("user id should be a number")
+		c.JSON(err.Status, err)
+		return
+	}
+	user, getErr := services.GetUser(userID)
+	if getErr != nil {
+		c.JSON(getErr.Status, getErr)
+		return
+	}
+	c.JSON(http.StatusOK, user)
 }
 
 //CreateUser does

@@ -1,9 +1,11 @@
 package users
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ikauzak/bookstore_users-api/domain/users"
+	"github.com/ikauzak/bookstore_users-api/services"
 	"io/ioutil"
 	"net/http"
 )
@@ -16,11 +18,19 @@ func GetUser(c *gin.Context) {
 //CreateUser does
 func CreateUser(c *gin.Context) {
 	var user users.User
-	fmt.Println(user)
-	bytes, err := ioutil.ReadAll(c.Request.Body)
-	fmt.Println(err)
-	fmt.Println(string(bytes))
-	c.String(http.StatusNotImplemented, "implement me")
+	if err := c.ShouldBindJSON(&user); err != nil {
+		fmt.Println(err)
+		//TODO: return bad request to the caller.
+		return
+	}
+	result, saveErr := services.CreateUser(user)
+
+	if saveErr != nil {
+		//TODO: Handle user creation error
+		return
+	}
+
+	c.JSON(http.StatusCreated, result)
 }
 
 //SearchUser does
